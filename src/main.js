@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+// 引入router
 import router from './router';
 import './plugins/element.js'
 

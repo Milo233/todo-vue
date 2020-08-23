@@ -12,6 +12,11 @@ export default new Router({
             component: Home,
         },
         {
+            path: '/postTodo',
+            name: 'postTodo', //懒加载
+            component: () => import('./views/PostTodo.vue'),
+        },
+        {
             path: '/about',
             name: 'about', //懒加载
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
