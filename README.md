@@ -17,3 +17,6 @@ import router from './router';
 router.js里定义项目路由具体内容
 
 vue.config.js 里指定请求转发规则？
+
+todo
+登录退出。。

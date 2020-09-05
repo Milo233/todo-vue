@@ -6,6 +6,9 @@ import './plugins/element.js'
 
 Vue.config.productionTip = false
 
+// 日期格式化
+Vue.use(require('vue-moment'));
+
 new Vue({
   router,
   render: h => h(App),

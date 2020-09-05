@@ -15,6 +15,11 @@ export default new Router({
             path: '/postTodo',
             name: 'postTodo', //懒加载
             component: () => import('./views/PostTodo.vue'),
+        }, // 详情页如果放到post页前面会出bug。。很奇怪 ┑(￣Д ￣)┍
+        {
+            path: '/todo/:todoId',
+            name: 'showTodo',
+            component: () => import(/* webpackChunkName: "video" */ './views/ShowTodo.vue'),
         },
         {
             path: '/about',

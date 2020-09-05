@@ -14,15 +14,16 @@
                     </el-card>
                 </el-col>
             </el-row>
-<!--            <div class="block">
+            <div class="block">
+                <!-- 分页组件  -->
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
                         :page-size="6"
-                        layout="prev, pager, next"
+                        layout="total,sizes,prev, pager, next,jumper"
                         :total="total">
                 </el-pagination>
-            </div>-->
+            </div>
         </div>
     </div>
 </template>
@@ -41,11 +42,24 @@
         }
         ,
         methods: {
+            handleSizeChange(val) {
+                this.limit = val;
+                this.load();
+            },
+            handleCurrentChange(val) {
+                this.start = this.limit * (val - 1); // val 页面
+                this.load();
+            },
             load() {
-                API.getTodos().then((res) => {
+                let start = Date.now();
+                API.getTodos(this.start, this.limit).then((res) => {
                     this.todos = res.data.items;
-                    // this.total = res.data.total;
+                    this.total = res.data.total;
+                    console.log(Date.now() - start)
                 });
+            },
+            goTodo(todo) {  // 这里的todoId传给了 ShowTodo.vue, 不是直接传给了index.js
+                this.$router.push({ name: 'showTodo', params: { todoId: todo.id } });
             },
         },
         components: {
