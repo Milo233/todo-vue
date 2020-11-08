@@ -17,6 +17,8 @@ const logout = form => axios.delete('/api/v1/user/logout', form).then(res => res
 
 const me = form => axios.get('/api/v1/user/me', form).then(res => res.data);
 
+const readbook = (bookname, index, pagesize, ) => axios.get('/api/v1/book/read', { params: { index, pagesize, bookname } }).then(res => res.data);
+
 export {
     login,
     logout,
@@ -24,4 +26,5 @@ export {
     getTodos,
     getTodo,
     postTodo,
+    readbook,
 };

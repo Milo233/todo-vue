@@ -22,6 +22,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "video" */ './views/ShowTodo.vue'),
         },
         {
+            path: '/book',
+            name: 'book', //懒加载
+            component: () => import(/* webpackChunkName: "about" */ './views/Book.vue'),
+        },
+        {
             path: '/about',
             name: 'about', //懒加载
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
