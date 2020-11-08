@@ -13,8 +13,14 @@ const getTodos = (start, limit) => axios.get('/api/v1/todos', { params: { start,
 
 const login = form => axios.post('/api/v1/user/login', form).then(res => res.data);
 
+const logout = form => axios.delete('/api/v1/user/logout', form).then(res => res.data);
+
+const me = form => axios.get('/api/v1/user/me', form).then(res => res.data);
+
 export {
     login,
+    logout,
+    me,
     getTodos,
     getTodo,
     postTodo,

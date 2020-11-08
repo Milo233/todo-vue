@@ -38,6 +38,7 @@
                 start: 0,
                 limit: 10,
                 total: 0,
+                message: "123",
             };
         }
         ,
@@ -51,11 +52,16 @@
                 this.load();
             },
             load() {
-                let start = Date.now();
                 API.getTodos(this.start, this.limit).then((res) => {
+                    if (res.status !== 0) {
+                        this.$notify.error({
+                            title: 'failed to query!',
+                            message: res.msg,
+                        });
+                        this.$router.push({ name: 'about', params: {} });
+                    }
                     this.todos = res.data.items;
                     this.total = res.data.total;
-                    console.log(Date.now() - start)
                 });
             },
             goTodo(todo) {  // 这里的todoId传给了 ShowTodo.vue, 不是直接传给了index.js
