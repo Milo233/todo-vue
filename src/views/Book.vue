@@ -1,9 +1,9 @@
 <template>
     <div class="about">
         <div class="front" style="padding: 8px 12px">
-            <p v-html="current" style="height: 60%" @dblclick="readbook(1)"></p>
-            <el-button type="primary" @click="readbook(-1)">上一页</el-button>
-            <el-button type="primary" @click="readbook(1)">next page</el-button>
+            <p v-html="current" style="height: 60%" @dblclick="readbook(1)" @click="pageTurn($event)"></p>
+            <el-button type="text" >{{index}}/{{total}} {{(index / total * 100).toFixed(0) }}%</el-button>
+            <el-input v-model="bookname" @change="changeBook"></el-input>
         </div>
     </div>
 </template>
@@ -23,10 +23,12 @@
         data() {
             return {
                 current:"",
+                total: 0,
                 pageSize: 10,
                 lastPageContent:"",
                 nextPageContent:"",
                 index:-1,
+                bookname: "story2.txt",
             };
         },
         methods: {
@@ -38,23 +40,36 @@
                 } else {
                     diff = 0;
                 }
-                this.backtop();
-                API.readbook("story2.txt", parseInt(diff)+parseInt(this.index), this.pageSize).then((res) => {
+                this.backToTop();
+                API.readbook(this.bookname, parseInt(diff)+parseInt(this.index), this.pageSize).then((res) => {
                     this.current = res.current
                     this.lastPageContent = res.lastPageContent
                     this.nextPageContent = res.nextPageContent
                     this.index = res.index
+                    this.total = res.total
                 });
             },
-            backtop(){
-                var timer = setInterval(function(){
+            pageTurn(event){ // 根据点击位置判断是向前还是向后翻页
+                const screenWidth = document.body.clientWidth
+                if (event.clientX < screenWidth / 3) {
+                    this.readbook(-1)
+                } else if (event.clientX > 2 * screenWidth / 3) {
+                    this.readbook(1)
+                }
+            },
+            changeBook(){
+                this.index = -1; // reset
+                this.readbook(0);
+            },
+            backToTop(){
+                const timer = setInterval(function () {
                     let osTop = document.documentElement.scrollTop || document.body.scrollTop;
-                    let ispeed = Math.floor(-osTop / 5);
+                    let ispeed = Math.floor(-osTop / 3);
                     document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed;
-                    if(osTop === 0){
+                    if (osTop === 0) {
                         clearInterval(timer);
                     }
-                },30)
+                }, 30);
             },
         },
         components: {
