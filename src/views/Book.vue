@@ -52,9 +52,9 @@
             },
             pageTurn(event){ // 根据点击位置判断是向前还是向后翻页
                 const screenWidth = document.body.clientWidth
-                if (event.clientX < screenWidth / 3) {
+                if (event.clientX < 2 * screenWidth / 5) { // [0, 2/5)
                     this.readbook(-1)
-                } else if (event.clientX > 2 * screenWidth / 3) {
+                } else if (event.clientX > 3 * screenWidth / 5) { // [3/5,1)
                     this.readbook(1)
                 }
             },

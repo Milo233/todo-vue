@@ -57,6 +57,7 @@
                         this.$notify.error({
                             title: 'failed to query!',
                             message: res.msg,
+                            position: 'bottom-right',
                         });
                         this.$router.push({ name: 'about', params: {} });
                     }

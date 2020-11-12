@@ -6,8 +6,7 @@
         <div class="startFront">
             <p :style="{'color' : anonymous ? 'red' : 'green' }" @click="toggle()"
             style="margin: 0 0;height: 30px">
-                <b v-show="anonymous">没有登录!</b>
-                <b v-show="!anonymous">你好，xxx！</b>
+                <b v-show="anonymous">未登录!</b>
                 <img alt="今日诗词" src="https://v2.jinrishici.com/one.svg"/>
 <!--                {{nowdate}}-->
                 <br/>
@@ -95,7 +94,20 @@
                     user_name: '',
                     password: '',
                 },
-                todos: []
+                todos: [],
+                tableData: [{
+                    name: 'Blog',
+                    address: 'http://47.90.97.197/index'
+                }, {
+                    name: 'v2ex',
+                    address: 'https://www.v2ex.com/'
+                }, {
+                    name: 'index',
+                    address: 'http://47.90.97.197:6010/#/about'
+                }, {
+                    name: '调度',
+                    address: 'http://47.90.97.197:5920'
+                }]
             };
         },
         methods: {
@@ -116,12 +128,14 @@
                             title: '登录失败',
                             message: res.msg,
                             type: 'error',
+                            position: 'bottom-right',
                         });
                     } else {
                         this.$notify({
                             title: '登录成功',
                             message: `enjoy!!!`,
                             type: 'success',
+                            position: 'bottom-right',
                         });
                         this.$router.push({ name: 'home', params: {} });
                     }
@@ -129,6 +143,7 @@
                     this.$notify.error({
                         title: '网路错误，或者服务器宕机',
                         message: error,
+                        position: 'bottom-right',
                     });
                 });
             },
@@ -166,12 +181,14 @@
                             title: '登出失败',
                             message: res.msg,
                             type: 'error',
+                            position: 'bottom-right',
                         });
                     } else {
                         this.$notify({
                             title: '登出成功',
                             message: `see you!!!`,
                             type: 'success',
+                            position: 'bottom-right',
                         });
                         window.location.reload()
                     }
@@ -179,6 +196,7 @@
                     this.$notify.error({
                         title: '网路错误，或者服务器宕机',
                         message: error,
+                        position: 'bottom-right',
                     });
                 });
             },
