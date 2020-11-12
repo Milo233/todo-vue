@@ -4,8 +4,9 @@ import axios from 'axios';
 const postTodo = form => axios.post('/api/v1/todo', form).then(res => res.data);
 
 // 读视频详情
-// const getVideo = id => axios.get(`/api/v1/video/${id}`).then(res => res.data);
 const getTodo = id => axios.get(`/api/v1/todo/${id}`).then(res => res.data);
+
+const deleteTodo = id => axios.delete(`/api/v1/todo/${id}`).then(res => res.data);
 
 // 读取视频列表
 // const getTodos = () => axios.get('/api/v1/todos', { }).then(res => res.data);
@@ -27,4 +28,5 @@ export {
     getTodo,
     postTodo,
     readbook,
+    deleteTodo,
 };

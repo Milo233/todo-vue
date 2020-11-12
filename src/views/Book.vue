@@ -1,8 +1,8 @@
 <template>
-    <div class="about">
-        <div class="front" style="padding: 8px 12px">
-            <p v-html="current" style="height: 60%" @dblclick="readbook(1)" @click="pageTurn($event)"></p>
-            <el-button type="text" >{{index}}/{{total}} {{(index / total * 100).toFixed(0) }}%</el-button>
+    <div class="about" @click="pageTurn($event)">
+        <el-button type="text" >{{index}}/{{total}} {{(index / total * 100).toFixed(0) }}%</el-button>
+        <div class="front" style="padding: 8px 12px" >
+            <p v-html="current" style="height: 60%" ></p>
             <el-input v-model="bookname" @change="changeBook"></el-input>
         </div>
     </div>
@@ -11,7 +11,8 @@
     body{ text-align:center;margin: 0 0}
     .front{
         z-index:1;
-        text-align: center;
+        text-align: left;
+        line-height: 24px;
     }
 </style>
 

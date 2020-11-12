@@ -1,14 +1,16 @@
 <template>
     <div class="about">
         <div class="background">
-            <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3933686797,1281976599&amp;fm=26&amp;gp=0.jpg" width="100%" height="100%" alt="" />
+            <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3360065279,1236835867&fm=26&gp=0.jpg" width="100%" height="100%" alt="" />
         </div>
-        <div class="front">
+        <div class="startFront">
             <p :style="{'color' : anonymous ? 'red' : 'green' }" @click="toggle()"
-            style="margin-top: 0px">
+            style="margin: 0 0;height: 30px">
                 <b v-show="anonymous">没有登录!</b>
                 <b v-show="!anonymous">你好，xxx！</b>
-                <img alt="今日诗词" src="https://v2.jinrishici.com/one.svg"/><br/> <br/>
+                <img alt="今日诗词" src="https://v2.jinrishici.com/one.svg"/>
+<!--                {{nowdate}}-->
+                <br/>
             </p>
 
             <el-form ref="form" :model="form" label-width="80px" v-show="show">
@@ -38,7 +40,20 @@
             <div v-for="link in tableData" :key="link.address" style="display: inline;">
                 <el-button type="text" @click="goto(link.address)" style="margin-right: 14px">{{link.name}}</el-button>
             </div>
-            <p>{{nowdate}}</p>
+
+            <ol>
+                <li v-for="todo in todos" :key="todo">
+                    <a v-show="todo.url" :href="todo.url" target="_blank">
+                        {{todo.title}} / {{todo.info}}
+                    </a>
+                    <p v-show="todo.url === ''">
+                        {{todo.title}} / {{todo.info}}
+                    </p>
+                    {{todo.created_at | moment("YYYY-MM-DD h:mm:ss")}}
+                    <b @click="deleteTodo(todo.id)" style="color:red;"> 刪除</b>
+                </li>
+            </ol>
+
         </div>
     </div>
 </template>
@@ -51,7 +66,7 @@
         position: absolute;
     }
 
-    .front{
+    .startFront {
         z-index:1;
         text-align: center;
     }
@@ -74,25 +89,13 @@
                 imageUrl: '',
                 dialogImageUrl: '',
                 dialogVisible: false,
-                keyword: "go~",
+                keyword: "",
                 nowdate: formatDate(new Date()),
                 form: {
                     user_name: '',
                     password: '',
                 },
-                tableData: [{
-                    name: 'Blog',
-                    address: 'http://47.90.97.197/index'
-                }, {
-                    name: 'v2ex',
-                    address: 'https://www.v2ex.com/'
-                }, {
-                    name: 'index',
-                    address: 'http://47.90.97.197:6010/#/about'
-                }, {
-                    name: '调度',
-                    address: 'http://47.90.97.197:5920'
-                }]
+                todos: []
             };
         },
         methods: {
@@ -101,6 +104,9 @@
                     if (res.status === 0) {
                         this.anonymous = false;
                     }
+                });
+                API.getTodos(0, 100000).then((res) => {
+                    this.todos = res.data.items;
                 });
             },
             onSubmit() {
@@ -145,6 +151,13 @@
             },
             goto(address){
                 window.open(address,'_blank');
+            },
+            deleteTodo(id){
+                if (confirm("are you sure to delete it?" + id)) {
+                    API.deleteTodo(id).then(() => {
+                        this.load()
+                    });
+                }
             },
             onOut(){
                 API.logout().then((res) => {
