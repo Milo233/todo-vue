@@ -97,13 +97,13 @@
                 todos: [],
                 tableData: [{
                     name: 'Blog',
-                    address: 'http://47.90.97.197/index'
+                    address: 'http://47.90.97.197/u/milo/blogs/random/0'
                 }, {
                     name: 'v2ex',
                     address: 'https://www.v2ex.com/'
                 }, {
-                    name: 'index',
-                    address: 'http://47.90.97.197:6010/#/about'
+                    name: 'Java',
+                    address: 'http://47.90.97.197/u/milo/blogs/random/1'
                 }, {
                     name: '调度',
                     address: 'http://47.90.97.197:5920'
@@ -151,6 +151,10 @@
                 this.show = !this.show;
             },
             clear(){
+                if (this.keyword.startsWith("https://github.com")) {
+                    alert(this.keyword.replace("https://github.com","https://hub.fastgit.org"));
+                    // https://github.com/lenve/vhr.git => https://hub.fastgit.org/redis/redis.git
+                }
                 this.keyword = ""
             },
             search(engine){

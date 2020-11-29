@@ -20,6 +20,8 @@ const me = form => axios.get('/api/v1/user/me', form).then(res => res.data);
 
 const readbook = (bookname, index, pagesize, ) => axios.get('/api/v1/book/read', { params: { index, pagesize, bookname } }).then(res => res.data);
 
+const randomBlogByCatalog = (catalog,  ) => axios.get('/api/v1/blog/random', { params: { catalog } }).then(res => res.data);
+
 export {
     login,
     logout,
@@ -29,4 +31,5 @@ export {
     postTodo,
     readbook,
     deleteTodo,
+    randomBlogByCatalog,
 };

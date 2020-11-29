@@ -31,5 +31,10 @@ export default new Router({
             name: 'about', //懒加载
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
         },
+        {
+            path: '/blog',
+            name: 'blog', //懒加载
+            component: () => import(/* webpackChunkName: "about" */ './views/Blog.vue'),
+        },
     ],
 });

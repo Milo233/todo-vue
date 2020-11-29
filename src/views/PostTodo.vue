@@ -96,6 +96,7 @@
                             position: 'bottom-right',
                             type: 'success',
                         });
+                        Object.assign(this.$data, this.$options.data()) // 把data数据重置成初始数据
                     }
                 }).catch((error) => {
                     this.$notify.error({

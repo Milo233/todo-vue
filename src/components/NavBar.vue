@@ -6,6 +6,7 @@
         <el-menu-item index="/postTodo">todo+</el-menu-item>
         <el-menu-item index="/book">书</el-menu-item>
         <el-menu-item index="/about">start</el-menu-item>
+        <el-menu-item index="/blog">blog</el-menu-item>
     </el-menu>
 </template>
 
